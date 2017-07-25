@@ -1,4 +1,4 @@
-package com.techandsolve.prueba.cargaperezosa;
+package com.techandsolve.cargaperezosa;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
