@@ -1,4 +1,4 @@
-package com.techandsolve.cargaperezosa.controladores;
+package com.techandsolve.cargaperezosa.controladores.rest;
 
 import java.util.Date;
 
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techandsolve.cargaperezosa.entidades.Ejecuciones;
-import com.techandsolve.cargaperezosa.repositorio.EjecucionesLog;
+import com.techandsolve.cargaperezosa.repositorios.EjecucionesLog;
 
 @RestController
-@RequestMapping(value = "/cargaArchivo")
+@RequestMapping(value = "/procesar-archivo")
 public class ProcesarArchivo {
 	
 	@Autowired

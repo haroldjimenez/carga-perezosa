@@ -1,4 +1,4 @@
-package com.techandsolve.cargaperezosa.repositorio;
+package com.techandsolve.cargaperezosa.repositorios;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
