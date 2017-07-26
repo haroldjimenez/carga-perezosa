@@ -1,1 +1,1 @@
-angular.module('CargaPerezosa', ['ngMaterial','ngResource']);
+angular.module('CargaPerezosa', ['ngMaterial','ui.router']);

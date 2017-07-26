@@ -16,38 +16,38 @@ public class CargarArchivo {
 	
 	private static final Logger LOG = Logger.getLogger(CargarArchivo.class);
 	
-	public static void cargarArchivo(String rutaArchivo) throws IOException{
-		LineIterator it = FileUtils.lineIterator(new File("D:\\prueba_tecnica\\LazyLoading\\lazy_loading_2.txt"), "UTF-8");
-		
-		try {
-			
-			byte numeroCajas = 0;
-			int [] dias = null;
-			List<Byte> cajas = new LinkedList<Byte>();
-			if(it.hasNext() && dias == null ){
-	        	dias = new int[Short.valueOf(it.nextLine())];
-	        	numeroCajas = Byte.valueOf(it.nextLine());
-	        	
-	        } 
-		    while (it.hasNext()) {
-		        String line = it.nextLine();
-		         if(numeroCajas == 0){
-		        	Collections.sort(cajas);
-		        	numeroCajas = Byte.valueOf(line);
-		        	cajas = new LinkedList<Byte>();
-		        } else {
-		        	cajas.add( Byte.valueOf(line));
-		        	numeroCajas--;
-		        }
-		        
-		    }
-		} catch (NumberFormatException e) {
-			LOG.error("Error carga archivo, alguna de las lineas contenia caracteres diferentes a números");
-			throw e;
-		}finally {
-		    LineIterator.closeQuietly(it);
-		}
-	}
+//	public static void cargarArchivo(String rutaArchivo) throws IOException{
+//		LineIterator it = FileUtils.lineIterator(new File("D:\\prueba_tecnica\\LazyLoading\\lazy_loading_2.txt"), "UTF-8");
+//		
+//		try {
+//			
+//			byte numeroCajas = 0;
+//			int [] dias = null;
+//			List<Byte> cajas = new LinkedList<Byte>();
+//			if(it.hasNext() && dias == null ){
+//	        	dias = new int[Short.valueOf(it.nextLine())];
+//	        	numeroCajas = Byte.valueOf(it.nextLine());
+//	        	
+//	        } 
+//		    while (it.hasNext()) {
+//		        String line = it.nextLine();
+//		         if(numeroCajas == 0){
+//		        	Collections.sort(cajas);
+//		        	numeroCajas = Byte.valueOf(line);
+//		        	cajas = new LinkedList<Byte>();
+//		        } else {
+//		        	cajas.add( Byte.valueOf(line));
+//		        	numeroCajas--;
+//		        }
+//		        
+//		    }
+//		} catch (NumberFormatException e) {
+//			LOG.error("Error carga archivo, alguna de las lineas contenia caracteres diferentes a números");
+//			throw e;
+//		}finally {
+//		    LineIterator.closeQuietly(it);
+//		}
+//	}
 	
 	public static void cargarArchivo2(String rutaArchivo) throws IOException{
 		LineIterator it = FileUtils.lineIterator(new File("D:\\prueba_tecnica\\LazyLoading\\lazy_loading_1.txt"), "UTF-8");
