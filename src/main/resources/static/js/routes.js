@@ -2,14 +2,14 @@ var routerApp = angular.module('CargaPerezosa');
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {
 
-//    $urlRouterProvider.otherwise('/about');
+    $urlRouterProvider.otherwise('/home');
 
     $stateProvider
 
         // HOME STATES AND NESTED VIEWS ========================================
         .state('home', {
             url: '/home',
-            templateUrl: 'template/cargar-archivo.html',
+            templateUrl: 'templates/cargar-archivo.html',
             controller: 'cargaArchivosCtrl'
         })
 

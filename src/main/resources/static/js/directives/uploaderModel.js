@@ -8,6 +8,7 @@ app.directive('uploaderModel', ["$parse", function ($parse) {
 			iElement.on("change", function(e)
 			{
 				$parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+				 scope.$apply() 
 			});
 		}
 	};

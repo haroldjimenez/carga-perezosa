@@ -1,6 +1,7 @@
 package com.techandsolve.cargaperezosa.servicios;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class EjecucionesLogService {
 		ejecucion.setFechaEjecucion(new Date());
 		ejecucion.setDocumentoIdentidad(documento);
 		ejecuciones.save(ejecucion);
+	}
+	
+	public List<Ejecuciones> consultar(){
+		return ejecuciones.findAll();
 	}
 
 }

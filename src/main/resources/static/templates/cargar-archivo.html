@@ -1,0 +1,51 @@
+
+<div layout="column" ng-cloak>
+	<form name="cargarArchivoForm" ng-submit="upload()">
+		<div layout-gt-sm="column">
+
+			<md-input-container flex="40"> <label>Documento</label>
+			<input required name="clientName" ng-model="user.document">
+			<div ng-messages="cargarArchivoForm.clientName.$error">
+				<div ng-message="required">El campo es requerido.</div>
+			</div>
+			</md-input-container>
+			<div layout="row">
+			<md-input-container flex="40"> <label>Archivo</label>
+			<input name="archivo" ng-model="file.name" disabled required>
+			<div ng-messages="cargarArchivoForm.archivo.$error">
+				<div ng-message="required">El campo es requerido.</div>
+			</div>
+			</md-input-container>
+			<input class="ng-hide" id="input-file-id" type="file"
+					uploader-model="file" /> <label for="input-file-id"
+					class="md-button md-raised md-primary">Seleci&#243;n de  archivo</label>
+			</div>
+
+			<md-input-container flex="20"> <md-button
+				class="md-raised md-primary" type="submit">Procesar
+			Archivo</md-button> </md-input-container>
+		</div>
+	</form>
+</div>
+<div flex="50" ng-show="ejecuciones">
+
+	<md-toolbar layout="row" class="sm-hue-1">
+	<div class="md-toolbar-tools">
+		<span>Cedula</span>
+	</div>
+	<div class="md-toolbar-tools">
+		<span>Fecha</span>
+	</div>
+	</md-toolbar>
+	<md-content> 
+	<md-list flex> 
+		<md-list-item	class="md-2-line" ng-repeat="item in ejecuciones">
+			<div class="md-list-item-text " flex ="50" layout="column">
+				<h3>{{ item.documentoIdentidad}}</h3>
+			</div>
+			<div class="md-list-item-text " flex ="50" layout="column">
+				<h3>{{item.fechaEjecucion | date:'medium'}}</h3>
+			</div>
+		</md-list-item>
+	 </md-list> </md-content>
+</div>

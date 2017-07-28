@@ -16,7 +16,7 @@ import com.techandsolve.cargaperezosa.validaciones.ValidacionCajas;
 import com.techandsolve.cargaperezosa.validaciones.ValidacionDiasTrabajo;
 import com.techandsolve.cargaperezosa.validaciones.ValidacionPesoCajas;
 @SpringBootApplication
-@PropertySource("mensajes.properties")
+@PropertySource("classpath:mensajes.properties")
 public class Application {
 
 	public static void main(String[] args) {
