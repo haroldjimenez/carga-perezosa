@@ -1,34 +1,38 @@
 
 <div layout="column" ng-cloak>
 	<form name="cargarArchivoForm" ng-submit="upload()">
-		<div layout-gt-sm="column">
+		<div layout="column">
 
-			<md-input-container flex="40"> <label>Documento</label>
-			<input required name="clientName" ng-model="user.document">
-			<div ng-messages="cargarArchivoForm.clientName.$error">
-				<div ng-message="required">El campo es requerido.</div>
-			</div>
+			<md-input-container flex="40"> 
+				<label>Documento</label>
+				<input required name="clientName" ng-model="user.document">
+				<div ng-messages="cargarArchivoForm.clientName.$error">
+					<div ng-message="required">El campo es requerido.</div>
+				</div>
 			</md-input-container>
 			<div layout="row">
-			<md-input-container flex="40"> <label>Archivo</label>
-			<input name="archivo" ng-model="file.name" disabled required>
-			<div ng-messages="cargarArchivoForm.archivo.$error">
-				<div ng-message="required">El campo es requerido.</div>
-			</div>
-			</md-input-container>
-			<input class="ng-hide" id="input-file-id" type="file"
-					uploader-model="file" /> <label for="input-file-id"
-					class="md-button md-raised md-primary">Seleci&#243;n de  archivo</label>
+				<md-input-container flex="80"> 
+					<label>Archivo</label>
+					<input name="archivo" ng-model="file.name" disabled required>
+					<div ng-messages="cargarArchivoForm.archivo.$error">
+						<div ng-message="required">El campo es requerido.</div>
+					</div>
+				</md-input-container>
+				<input class="ng-hide" id="input-file-id" type="file"	uploader-model="file" /> 
+				<label for="input-file-id"	class="md-button md-raised  boton">Seleci&#243;n de  archivo</label>
 			</div>
 
-			<md-input-container flex="20"> <md-button
-				class="md-raised md-primary" type="submit">Procesar
-			Archivo</md-button> </md-input-container>
+			<div flex="50"> 
+				<md-button class="md-raised md-primary" type="submit">Procesar	Archivo</md-button> 
+			</div>
 		</div>
 	</form>
 </div>
-<div flex="50" ng-show="ejecuciones">
-
+</br></br></br>
+<div flex ng-show="ejecuciones">
+	<md-toolbar md-scroll-shrink>
+		<div class="md-toolbar-tools">Lista Ejecuciones</div>
+	</md-toolbar>
 	<md-toolbar layout="row" class="sm-hue-1">
 	<div class="md-toolbar-tools">
 		<span>Cedula</span>
