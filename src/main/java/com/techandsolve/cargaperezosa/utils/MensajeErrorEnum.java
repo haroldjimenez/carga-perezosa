@@ -1,4 +1,4 @@
-package com.techandsolve.cargaperezosa.servicios;
+package com.techandsolve.cargaperezosa.utils;
 
 public enum MensajeErrorEnum {
 
@@ -8,6 +8,7 @@ public enum MensajeErrorEnum {
 	ERROR_NUMERO_CAJAS("403"),
 	ERROR_PESO_CAJAS("404"),
 	ERROR_CAJAS_FALTANTES("405"),
+	ERROR_DOCUMENTO_INVALIDO("406"),
 	;
 	private String code;
 

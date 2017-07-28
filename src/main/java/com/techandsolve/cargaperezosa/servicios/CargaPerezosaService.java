@@ -11,14 +11,16 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
 
-import com.techandsolve.cargaperezosa.excepciones.ExcepcionNegocio;
-import com.techandsolve.cargaperezosa.validaciones.ValidacionDiasTrabajo;
+import com.techandsolve.cargaperezosa.utils.AdministadorExcepciones;
+import com.techandsolve.cargaperezosa.utils.MensajeErrorEnum;
 import com.techandsolve.cargaperezosa.validaciones.ValidacionCajas;
+import com.techandsolve.cargaperezosa.validaciones.ValidacionDiasTrabajo;
+@Service
+public class CargaPerezosaService {
 
-public class ProcesarArchivoService {
-
-	private static final Logger LOG = Logger.getLogger(ProcesarArchivoService.class);
+	private static final Logger LOG = Logger.getLogger(CargaPerezosaService.class);
 
 	@Autowired
 	private ValidacionDiasTrabajo validacionDiasTrabajo;
@@ -28,21 +30,27 @@ public class ProcesarArchivoService {
 	
 	@Autowired
 	private ValidacionCajas validacionPesoCaja;
+	
+	@Autowired
+	private EjecucionesLogService ejecuciones;
+	
+	@Autowired
+	private AdministadorExcepciones adminExcepcion;
 
 	@Autowired
 	private Environment env;
 
-	public int[] cargarArchivo(InputStream archivo) throws IOException {
-
+	public Integer[] calcularNumeroViajes(InputStream archivo, String documento) throws IOException {
+		ejecuciones.logear(documento);
 		String line = null;
 		BufferedReader bufferedReader = null;
-		int[] dias = null;
+		Integer[] dias = null;
 		try {
 			bufferedReader = new BufferedReader(new InputStreamReader(archivo));
 			byte numeroCajas = 0;
 			Byte[] cajas = null;
 
-			dias = new int[obtenerDiasDeTrabajo(obtenerSiguienteLinea(bufferedReader))];
+			dias = new Integer[obtenerDiasDeTrabajo(obtenerSiguienteLinea(bufferedReader))];
 			numeroCajas = obtenerNumeroCajas(obtenerSiguienteLinea(bufferedReader));
 			cajas = new Byte[numeroCajas];
 			short dia = 0;
@@ -57,16 +65,15 @@ public class ProcesarArchivoService {
 					cajas[numeroCajas - 1] = obtenerPesoCaja(line);
 					numeroCajas--;
 				}
-
 			}
 			if (dia <= dias.length) {
 				if (numeroCajas != 0) {
-					lanzarExcepcion(MensajeErrorEnum.ERROR_CAJAS_FALTANTES);
+					adminExcepcion.lanzarExcepcion(MensajeErrorEnum.ERROR_CAJAS_FALTANTES);
 				}
 				calcularMaximoNumeroViaje(dias, cajas, dia);
 			}
 		} catch (NumberFormatException e) {
-			lanzarExcepcion(MensajeErrorEnum.ERROR_ARCHIVO_FORMATO_INVALIDO,
+			adminExcepcion.lanzarExcepcion(MensajeErrorEnum.ERROR_ARCHIVO_FORMATO_INVALIDO,
 					line);
 		} finally {
 			if (bufferedReader != null)
@@ -76,9 +83,9 @@ public class ProcesarArchivoService {
 
 	}
 
-	private void calcularMaximoNumeroViaje(int[] dias, Byte[] cajas, short dia) {
+	private void calcularMaximoNumeroViaje(Integer[] dias, Byte[] cajas, short dia) {
 		Arrays.sort(cajas);
-		dias[dia] = calcularMaximoNumeroViajes(Arrays.stream(cajas).collect(Collectors.toList()));
+		dias[dia] = calcularNumeroViajes(Arrays.stream(cajas).collect(Collectors.toList()));
 	}
 
 	private Short obtenerDiasDeTrabajo(String linea) throws IOException {
@@ -103,24 +110,23 @@ public class ProcesarArchivoService {
 			throws IOException {
 		String line;
 		if ((line = bufferedReader.readLine()) == null) {
-			lanzarExcepcion(MensajeErrorEnum.ERROR_ARCHIVO_FORMATO_INVALIDO);
+			adminExcepcion.lanzarExcepcion(MensajeErrorEnum.ERROR_ARCHIVO_FORMATO_INVALIDO);
 		}
 		return line;
 	}
 
-	public static int calcularMaximoNumeroViajes(List<Byte> cajas) {
+	public static int calcularNumeroViajes(List<Byte> cajas) {
 		int viajes = 0;
 		int numeroCaja = 0;
 		int pesoUltimaCaja = 0;
 		for (int i = cajas.size() - 1; i > -1; i--) {
 			if (pesoUltimaCaja == 0) {
 				pesoUltimaCaja = cajas.get(i);
-				numeroCaja++;
 				cajas.remove(i);
 			} else {
-				numeroCaja++;
 				cajas.remove(0);
 			}
+			numeroCaja++;
 			if (pesoUltimaCaja * numeroCaja >= 50) {
 				viajes++;
 				pesoUltimaCaja = 0;
@@ -130,19 +136,6 @@ public class ProcesarArchivoService {
 		return viajes;
 	}
 
-	private void lanzarExcepcion(MensajeErrorEnum msjEnum) {
-		throw new ExcepcionNegocio(msjEnum.getCode(),
-				obtenerMensajeError(msjEnum));
-	}
-
-	private String obtenerMensajeError(MensajeErrorEnum msjEnum) {
-		return env.getProperty(msjEnum.getCode());
-	}
-
-	private void lanzarExcepcion(MensajeErrorEnum msjEnum, Object... parametros)
-			throws RuntimeException {
-		throw new ExcepcionNegocio(msjEnum.getCode(), String.format(
-				obtenerMensajeError(msjEnum), parametros));
-	}
+	
 
 }

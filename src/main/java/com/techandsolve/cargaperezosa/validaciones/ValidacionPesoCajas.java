@@ -1,13 +1,19 @@
 package com.techandsolve.cargaperezosa.validaciones;
 
-import com.techandsolve.cargaperezosa.servicios.MensajeErrorEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ValidacionPesoCajas extends Validacion<Byte> {
+import com.techandsolve.cargaperezosa.utils.AdministadorExcepciones;
+import com.techandsolve.cargaperezosa.utils.MensajeErrorEnum;
 
+public class ValidacionPesoCajas implements Validacion<Byte> {
+
+	
+	@Autowired
+	private AdministadorExcepciones adminExcepciones;
 	@Override
 	public void validar(Byte cajas) {
 		if(cajas<1 || cajas >100){
-			lanzarExcepcion(MensajeErrorEnum.ERROR_NUMERO_CAJAS, cajas);
+			adminExcepciones.lanzarExcepcion(MensajeErrorEnum.ERROR_NUMERO_CAJAS, cajas);
 		}		
 	}
 
