@@ -25,21 +25,27 @@
 			<div flex="50"> 
 				<md-button class="md-raised md-primary" type="submit">Procesar	Archivo</md-button> 
 			</div>
+
 		</div>
 	</form>
+				 <a ng-href='#here' ng-click='consultaEjecuciones()' >click me</a>
+
 </div>
 </br></br></br>
 <div flex ng-show="ejecuciones">
-	<md-toolbar md-scroll-shrink>
+	<md-toolbar >
 		<div class="md-toolbar-tools">Lista Ejecuciones</div>
 	</md-toolbar>
 	<md-toolbar layout="row" class="sm-hue-1">
-	<div class="md-toolbar-tools">
-		<span>Cedula</span>
-	</div>
-	<div class="md-toolbar-tools">
-		<span>Fecha</span>
-	</div>
+		<div class="md-toolbar-tools">
+			<span>Cedula</span>
+		</div>
+		<div class="md-toolbar-tools">
+			<span>Fecha</span>
+		</div>
+		<div class="md-toolbar-tools">
+			<span>Imagen</span>
+		</div>
 	</md-toolbar>
 	<md-content> 
 	<md-list flex> 
@@ -49,6 +55,9 @@
 			</div>
 			<div class="md-list-item-text " flex ="50" layout="column">
 				<h3>{{item.fechaEjecucion | date:'medium'}}</h3>
+			</div>
+			<img ng-src="{{atob(item.imagen)}}" class="img-responsive " />
+			  {{fname}}
 			</div>
 		</md-list-item>
 	 </md-list> </md-content>

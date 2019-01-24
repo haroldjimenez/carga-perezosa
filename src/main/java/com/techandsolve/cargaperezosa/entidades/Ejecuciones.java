@@ -14,11 +14,11 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ejecucion_log")
-@SequenceGenerator(name = "ID_SEQUENCIA", sequenceName = "carga_perezosa_ejecuciones_id_seq", allocationSize = 1)
+//@SequenceGenerator(name = "ID_SEQUENCIA", sequenceName = "carga_perezosa_ejecuciones_id_seq", allocationSize = 1)
 public class Ejecuciones {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ID_SEQUENCIA")
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
 	
 	@Column(name = "documento_identidad")
 	private String documentoIdentidad;
@@ -26,12 +26,23 @@ public class Ejecuciones {
 	@Column(name = "fecha_ejecucion")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaEjecucion;
+	
+	@Column(name = "imagen")
+	private byte[]  imagen;
 
-	public Long getId() {
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

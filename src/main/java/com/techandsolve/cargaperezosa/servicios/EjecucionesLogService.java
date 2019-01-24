@@ -1,7 +1,16 @@
 package com.techandsolve.cargaperezosa.servicios;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +38,14 @@ public class EjecucionesLogService {
 		Ejecuciones ejecucion = new Ejecuciones();
 		ejecucion.setFechaEjecucion(new Date());
 		ejecucion.setDocumentoIdentidad(documento);
+		try {
+			File file = new File("C:\\Users\\harojifa\\Pictures\\Penguins.jpg");
+			ejecucion.setImagen(Files.readAllBytes(file.toPath()));
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ejecuciones.save(ejecucion);
 	}
 	
